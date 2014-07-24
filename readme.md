@@ -18,6 +18,7 @@ Lorem Ipsum Dolor
 
 - [ ] replace elements for `className` or accept both and check parameters
 - [ ] add animations
+- [ ] add callbacks
 - [ ] add documentation via jsDocs or Docco
 - [ ] check parameters used in functions, if exist and so on...
 - [ ] do landing page
