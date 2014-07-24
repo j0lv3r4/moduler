@@ -1,0 +1,117 @@
+.box-sizing();
+
+// ## Dependencies
+
+@import "base";
+@import "hyx";
+
+// ## Grid setup
+//
+// @gutter & @width
+
+@gutter: 3%;
+@width: 100%;
+
+// ## Colors
+
+@white: #fff;
+
+// ## Modules
+
+.coverer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// ## Base 
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: #fff;
+}
+
+a {
+  color: #333;
+  text-decoration: none; 
+}
+
+// ## Layout
+
+.container {
+    margin: 0 auto;
+    width: 65em;
+}
+
+// ## Popup
+
+@clouds: #ECF0F1;
+@asbestos: #7F8C8D;
+@nephritis: #27AE60;
+@pomegranate: #C0392B;
+@alizarin: #E74C3C;
+@emerald: #2ECC71;
+
+._popup {
+  display: none;
+  position: relative;
+  width: 20em;
+  border-radius: 8px;
+  padding: 0.618em 2em;
+  color: #777;
+  text-align: center;
+  background-color: @clouds;
+  box-shadow: 0 0 1em 5px rgba(0,0,0,0.2);
+}
+
+.buttons {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.button {
+  display: inline;
+}
+
+.button-style(@color) {
+  color: darken(@color, 20%);
+  background-color: @color;
+
+  &:hover {
+    background-color: darken(@color, 5%);   
+  }
+}
+
+.button-yes,
+.button-no {
+  padding: 0.618em 2em;
+  border-radius: 4px;
+}
+
+.button-yes {
+  .button-style(@emerald);
+}
+
+.button-no {
+  .button-style(@alizarin)
+}
+
+.button-close {
+  top: 0;
+  right: 8px;
+  position: absolute;
+
+  &:hover {
+    opacity: 0.7; 
+  }
+}
