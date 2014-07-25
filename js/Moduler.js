@@ -1,9 +1,65 @@
-(function() {
+;(function(d, w) {
   'use strict';
 
   function defineModuler() {
     /** @namespace */
     var Moduler = {};
+
+    /**
+     * Add styles to a selected DOM element.
+     *
+     * @param {object} the styles represented in an Object.
+     * @param {dom} target where we want to apply the styles.
+     */
+    var _addStyles = function(stylesObj, target) {
+      var styles = stylesObj || {};
+
+      for (var i in styles) {
+        target.style[i] = styles[i];
+      }
+    };
+
+    /**
+     * fadeIn & fadeOut animation
+     *
+     * @param {string} "in" or "out".
+     * @param {int} Time in microseconds.
+     * @param {DOM} Element to apply the animation.
+     * @param {boolean} Check if browser is IE.
+     */
+    var _fade = function(type, ms, el, IE) {
+      // TODO: add callback when finished
+      var isIn = type === 'in',
+      opacity = isIn ? 0 : 1,
+      interval = 50,
+      gap = interval / ms;
+	        
+	    if (isIn) {
+	        el.style.display = 'block';
+			el.style.opacity = opacity;
+ 
+        	if(IE) {
+            	el.style.filter = 'alpha(opacity=' + opacity + ')';
+	            el.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity + ')';
+	        }
+	    }
+	    
+	    function func() {
+	        opacity = isIn ? opacity + gap : opacity - gap; 
+	        el.style.opacity = opacity;
+ 
+	        if(IE) {
+	            el.style.filter = 'alpha(opacity=' + opacity * 100 + ')';
+	            el.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')';
+	        }
+	        
+	        if(opacity <= 0 || opacity >= 1) window.clearInterval(fading);
+	        if(opacity <= 0) el.style.display = 'none';
+	    }
+	    
+	    var fading = window.setInterval(func, interval);
+    };
+
 
     /**
      * Initialize the library and add the needed event listeners.
@@ -34,7 +90,7 @@
         };
 
       el.className = "_popup-background";
-      Moduler.addStyles(styles, el);
+      _addStyles(styles, el);
       document.body.appendChild(el);
       el.style.display = "block";
       Moduler.showPopup();
@@ -61,7 +117,7 @@
         display: "block"
       };
 
-      this.addStyles(styles, popup);
+      _addStyles(styles, popup);
       closeButton.addEventListener('click', self.hidePopup);
     };
 
@@ -74,29 +130,15 @@
       Moduler.options.popup.style.display = "none";
       Moduler.options.closeButton.removeEventListener('click', Moduler.hidePopup);
       document.body.removeChild(bg);
-    },
-
-    /**
-     * Add styles to a selected DOM element.
-     *
-     * @param {object} the styles represented in an Object.
-     * @param {dom} target where we want to apply the styles.
-     */
-    Moduler.addStyles = function(stylesObj, target) {
-      var styles = stylesObj || {};
-
-      for (var i in styles) {
-        target.style[i] = styles[i];
-      }
     };
-        
+
     return Moduler;
-  }
+  };
 
   // define globally if it doesn't already exist
   if (typeof(Moduler) === 'undefined') {
-    window.Moduler = defineModuler();
+    w.Moduler = defineModuler();
   } else {
     console.log("Moduler already defined.");
   }
-})(window);
+})(document, window);
